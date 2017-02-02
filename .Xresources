@@ -1,0 +1,68 @@
+! defines X resources for an entire X11 session.  applications run from within
+! this session can query these resources from the server, regardless of whether
+! they have been invoked on the same machine or remotely.
+!
+! for the nitty gritty:
+!
+!   https://superuser.com/questions/243914/xresources-or-xdefaults
+
+! keep the xterms sane:
+!
+!   - pick a nice font and let the user know which machine it started on.
+!   - ensure our keys do not surprise the user.
+!   - use as many colors as available.
+!   - make sure that we have a Meta key to support Emacs.
+XTerm*font:             -*-lucidatypewriter-*-*-*-*-*-120-*-*-*-*-*
+XTerm*title:            xterm @ $HOST
+XTerm*borderColor:      black
+XTerm*borderWidth:      2
+XTerm*internalBorder:   4
+XTerm*ttyModes:         intr ^c erase ^? kill ^u
+! send Meta-<key> as Esc, then <key> (so Alt can work as Meta)
+XTerm*eightBitInput:    false
+XTerm*reverseWrap:      true
+XTerm*scrollBar:        true
+XTerm*highlight:        white
+XTerm*Background:       white
+XTerm*Foreground:       black
+
+! make the cursor stand out on both black and white backgrounds.
+XTerm*cursorColor:      red
+
+! enable 8-bit colors.  note that we must enable color customization otherwise
+! the name override will be ignored.
+!
+! NOTE: the name is hardcoded rather than detected.  if it is incorrect, find
+!       the correct one in the terminfo database that has "256" in its name.
+*customization:         -color
+XTerm*termName:         xterm-256color
+
+! configure the 4-bit color pallete for all X11 applications.  listed in normal
+! and "bright" pairs.  lifted from:
+!
+!   https://wiki.archlinux.org/index.php/Color_output_in_console
+!
+! black + darkgrey.
+*color0:  #000000
+*color8:  #555753
+! darkred + red.
+*color1:  #ff6565
+*color9:  #ff8d8d
+! darkgreen + green.
+*color2:  #93d44f
+*color10: #c8e7a8
+! darkyellow + yellow.
+*color3:  #eab93d
+*color11: #ffc123
+! darkblue + blue.
+*color4:  #204a87
+*color12: #3465a4
+! darkmagenta + magenta.
+*color5:  #ce5c00
+*color13: #f57900
+! darkcyan + cyan.
+*color6:  #89b6e2
+*color14: #46a4ff
+! lightgrey + white.
+*color7:  #cccccc
+*color15: #ffffff

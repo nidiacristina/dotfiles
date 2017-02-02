@@ -1,0 +1,12 @@
+[user]
+    name  = Greg Thomsen
+    email = gthomsen@gmail.com
+
+[alias]
+    com  = commit
+    di   = diff
+    st   = status
+    stat = status
+
+[push]
+    default = simple

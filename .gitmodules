@@ -1,0 +1,8 @@
+[submodule ".emacs.d/elisp/align-f90"]
+	path = .emacs.d/elisp/align-f90
+	url = git@github.com:gthomsen/align-f90.git
+	branch = master
+[submodule ".emacs.d/elisp/matlab"]
+	path = .emacs.d/elisp/matlab
+	url = git://git.code.sf.net/p/matlab-emacs/src
+	branch = master

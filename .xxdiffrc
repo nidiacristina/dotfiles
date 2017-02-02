@@ -1,0 +1,18 @@
+# Configuration file for xxdiff.
+
+# allow easy toggling of ignoring whitespace.
+Accel.IgnoreTrailing:      "T"
+Accel.IgnoreWhitespace:    "W"
+Accel.IgnoreBlankLines:    "Q"
+Accel.HideCarriageReturns: "C"
+
+# give a sensible keybinding to the save operation we use 99% of the time.
+# rearrange the searching keybindings as well since someone decided that
+# C-s should be search rather than save.
+Accel.SaveAs:              "Ctrl+S"
+Accel.Search:              "Ctrl+F"
+Accel.SearchForward:       ""
+
+# display a vertical line at column 80 so that we can easily see long lines.
+Show.VerticalLine:         True
+VerticalLinePosition:      80

@@ -10,3 +10,6 @@
 
 [push]
     default = simple
+
+[commit]
+    template = ~/.gittemplate

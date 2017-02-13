@@ -159,3 +159,13 @@
   ;; middle clicks (button 2) paste at the point not at the mouse click.
   (setq mouse-yank-at-point t)
   )
+
+;; ============================= Terminal Emacs ==============================
+;;
+;; Configure Emacs when run inside of a terminal.  This disables the menu bar
+;; at the top to gain an extra line of space.
+
+(when (not (window-system))
+  ;; disable the menu bar.
+  (menu-bar-mode -1)
+  )

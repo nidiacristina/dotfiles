@@ -142,7 +142,7 @@
 (when (display-graphic-p)
   ;; disable the graphical toolbar.  the goal is to not touch the mouse and
   ;; buttons we'll never use simply waste space.
-  (tool-bar-mode nil)
+  (tool-bar-mode -1)
 
   ;; add a distinct marker to the fringe next to empty lines.  note that this
   ;; is a buffer-local variable.

@@ -11,6 +11,16 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
+;; git.el is considered a simple porcelain implementation and does not support
+;; commit templates.  this appends it to the log buffer when it exists.
+(eval-after-load "git-mode"
+  (defadvice git-setup-log-buffer (after insert-commit-template activate compile)
+    "Inserts the Git commit template into the log buffer if it exists."
+    (with-current-buffer buffer
+      (let ((template-path (git-config "commit.template")))
+        (when (and template-path (file-exists-p template-path))
+          (insert-file-contents template-path))))))
+
 ;; =========================== Buffer Management =============================
 
 ;; I never switch to a non-existent buffer by name to create it (I'll just visit

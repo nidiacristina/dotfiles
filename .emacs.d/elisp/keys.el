@@ -249,3 +249,16 @@
      (define-key log-edit-mode-map (kbd "M-P") 'log-edit-previous-comment)
      (define-key log-edit-mode-map (kbd "M-N") 'log-edit-next-comment)
      ))
+
+;; =============================== Octave Mode ===============================
+;;
+;;                          No new keys are defined.
+
+;; octave-mode doesn't have a keymap so we need to remove the key each time we
+;; enter the mode.
+(add-hook 'octave-mode-hook
+          (lambda ()
+            ;; ignore octave-mode's function lookup binding as ours is better
+            ;; (read: language agnostic).
+            (local-unset-key (kbd "M-."))
+            ))

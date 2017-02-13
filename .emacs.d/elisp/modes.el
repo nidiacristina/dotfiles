@@ -119,10 +119,6 @@
 
   ;; don't waste time showing us matching control structures.
   (setq octave-blink-matching-block nil)
-
-  ;; ignore octave-mode's function lookup binding as ours is better (read:
-  ;; language agnostic).
-  (local-unset-key (kbd "M-."))
   )
 
 (add-hook 'octave-mode-hook 'my-octave-mode-hook)

@@ -68,7 +68,7 @@ function screen()
 # NOTE: this is only used inside of a new screen instance, not regular
 #       interactive shells.
 if [ -n "${EMACS_SERVER}" ]; then
-    EMACSCLIENT_COMMAND="emacsclient -s '${EMACS_SERVER}'"
+    EMACSCLIENT_COMMAND="emacsclient -nw -s '${EMACS_SERVER}'"
     alias emacsclient=${EMACSCLIENT_COMMAND}
 
     export EDITOR="${EMACSCLIENT_COMMAND}"

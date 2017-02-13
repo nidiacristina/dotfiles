@@ -1,4 +1,5 @@
-;; Keybindings.
+;; Keybindings.  This file is grouped into two pieces: 1) global key bindings
+;; and 2) mode-specific bindings.
 
 ;; =============================== Development ===============================
 ;;
@@ -128,3 +129,123 @@
 
 ;; ask before we quit.
 (global-set-key (kbd "C-x C-c") 'ask-save-quit)
+
+;; ===========================================================================
+;;
+;; Everything beyond here are mode-specific key bindings.  These should always
+;; come last as they may depend upon the global configuration setup above.
+
+;; ================================ Diff Mode ================================
+;;
+;;    M-N           Next hunk.
+;;    M-P           Previous hunk.
+
+;; diff-mode is a bit zealous in mapping its functionality to keys.  several of
+;; the movement functions (diff-file-next/prev, diff-hunk-next/prev) are mapped
+;; multiple times and mask global bindings we have set above.  this ensures
+;; diff-mode behaves consistently relative to other modes.
+(eval-after-load "diff-mode"
+  '(progn
+     ;; prevent masking of our window movement key bindings.
+     (define-key diff-mode-map (kbd "M-o") nil)
+     (define-key diff-mode-map (kbd "M-p") nil)
+
+     ;; since it's partner was just unbound, remove the unmatched diff-file-next
+     ;; as well.  you know, for symmetry's sake.
+     (define-key diff-mode-map (kbd "M-n") nil)
+
+     ;; map movement through hunks to the upper case version.  this ensures that
+     ;; we have both forward and backward movement through a patch.  these keys
+     ;; are duplicates of M-{ and M-}, aka diff-file-prev and diff-file-next,
+     ;; respectively, so we're not losing functionality.
+     (define-key diff-mode-map (kbd "M-N") 'diff-hunk-next)
+     (define-key diff-mode-map (kbd "M-P") 'diff-hunk-prev)
+  ))
+
+;; ============================== Makefile Mode ==============================
+;;
+;;    M-}           Next dependency.
+;;    M-{           Previous dependency.
+
+;; to maintain consistency with our global movement keys, we move the
+;; next/previous dependency functions.
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            ;; move the dependency navigation keys to something else typically
+            ;; associated with next/previous.
+            (local-set-key   (kbd "M-{") 'makefile-previous-dependency)
+            (local-set-key   (kbd "M-}") 'makefile-next-dependency)
+
+            ;; remove the binding for our key to move to the previous window.
+            (local-unset-key (kbd "M-p"))
+            ))
+
+;; ================================ Man Mode =================================
+;;
+;;                          No new keys are defined.
+
+;; Man-mode doesn't have a keymap so we need to remove the key each time
+;; we enter the mode.
+(add-hook 'Man-mode-hook
+          (lambda ()
+            ;; do not mask moving between windows when working with manual
+            ;; pages.  we rarely have more than one man page open at a time so
+            ;; the default binding for changing to the previous page is less
+            ;; than useful.
+            (local-unset-key (kbd "M-p"))
+            ))
+
+;; ============================== Comint Mode ================================
+;;
+;;    M-P           Previous input.
+;;
+;; NOTE: A number of modes inherit from comint-mode, so this key binding affects
+;;       the GUD (GDB's shell and I/O), shells, etc.
+
+;; keep our other-window-backward binding and move the previous input binding to
+;; the upper case version.  we don't have C-p for the previous input anyway
+;; (which is common with readline-enabled applications, so this is close enough.
+(define-key comint-mode-map (kbd "M-p") nil)
+(define-key comint-mode-map (kbd "M-P") 'comint-previous-input)
+
+;; ============================ Compilation Mode =============================
+;;
+;;    M-N           Next error.
+;;    M-P           Previous error.
+
+;; unmask our buffer navigation and window navigation keys when we're navigating
+;; compilation messages.  we move the compilation error navigation keys to the
+;; upper case version of the original so they're still available.
+;;
+;; XXX: for the life of me I can't figure out how to modify compilation-mode-map
+;;      and have it be noticed.  as a result, we install a hook that fixes up
+;;      each buffer's local key map.
+(add-hook 'compilation-mode-hook
+      (lambda ()
+        ;; unmask the buffer navigation and window movement keys.
+        (local-unset-key (kbd "C-o"))
+        (local-unset-key (kbd "M-n"))
+        (local-unset-key (kbd "M-p"))
+
+        ;; rebind the error navigation functions to something
+        ;; similar to the original.
+        (local-set-key (kbd "M-N") 'compilation-next-error)
+        (local-set-key (kbd "M-P") 'compilation-previous-error)
+        ))
+
+;; ============================ Log Edit Mode ================================
+;;
+;;    M-N           Next log message.
+;;    M-P           Previous log message.
+;;
+
+(eval-after-load "log-edit"
+  '(progn
+     ;; unmask our window navigation key and it's companion (for completeness).
+     (define-key log-edit-mode-map (kbd "M-p") nil)
+     (define-key log-edit-mode-map (kbd "M-n") nil)
+
+     ;; rebind the log message navigation to the uppercase versions.
+     (define-key log-edit-mode-map (kbd "M-P") 'log-edit-previous-comment)
+     (define-key log-edit-mode-map (kbd "M-N") 'log-edit-next-comment)
+     ))

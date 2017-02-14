@@ -58,6 +58,114 @@
 
 (add-hook 'f90-mode-hook 'my-f90-mode-hook)
 
+;; ================================= GDB =====================================
+
+;; we just want the GUD buffer when we start debugging.
+(setq gdb-many-windows nil)
+
+;; configures a 6 window layout for debugging:
+;;
+;;   +--------------------------+--------------------------+
+;;   |                          |        break points      |
+;;   |                          +--------------------------+
+;;   |                          |            stack         |
+;;   |                          +--------------------------+
+;;   |                          |            local         |
+;;   |       source code        |          variables       |
+;;   |                          +--------------------------+
+;;   |                          |                          |
+;;   |                          |                          |
+;;   |                          |                          |
+;;   |                          |            GDB           |
+;;   +--------------------------+                          |
+;;   |  standard input/output   |                          |
+;;   +--------------------------+--------------------------+
+;;
+;; each window is fixed in its position for the duration of the debugging.
+;;
+;; derived from the code found here:
+;;
+;;   https://stackoverflow.com/questions/3860028/customizing-emacs-gdb/41326527#41326527
+;;
+;; with minor cleanup for readability and ease of understanding.
+(defun set-gdb-layout (&optional c-buffer)
+  "Configures the frame for a six panel GDB layout.  If provided a buffer,
+display it as the source, otherwise use the current buffer."
+  ;; default to the current buffer if we weren't provided one.
+  (if (not c-buffer)
+      (setq c-buffer (window-buffer (selected-window))))
+
+  ;; reset this frame to a single window containing our GDB shell.
+  ;;
+  ;; originally gleaned from:
+  ;;
+  ;;   from http://stackoverflow.com/q/39762833/846686
+  ;;
+  (set-window-dedicated-p (selected-window) nil)
+  (switch-to-buffer gud-comint-buffer)
+  (delete-other-windows)
+
+  (let*
+      (
+       ;; our source code window should be 90% of the left pane's height.  this
+       ;; implies the I/O window is only 10%.
+       (source-body-height (floor (* 0.9 (window-body-height))))
+
+       ;; define the six windows we'll show while debugging.
+       ;;
+       ;; NOTE: the order matters here both in the sense of where each buffer
+       ;;       resides in the layout as well as how large it will be.
+       ;;
+       ;; NOTE: for terminal Emacs users, seriously consider any update to the
+       ;;       arrangement of windows as the GDB window redefines M-p
+       ;;       (comint-previous-input instead of other-window-backward).  the
+       ;;       layout below allows quick navigation between the source and GDB
+       ;;       buffers via M-p and M-o.
+       (w-source      (selected-window))                                 ;; left top
+       (w-gdb         (split-window w-source nil                'right)) ;; right bottom
+       (w-locals      (split-window w-gdb    nil                'above)) ;; right middle bottom
+       (w-stack       (split-window w-locals nil                'above)) ;; right middle top
+       (w-breakpoints (split-window w-stack  nil                'above)) ;; right top
+       (w-io          (split-window w-source source-body-height 'below)) ;; left bottom
+       )
+
+    ;; create the layout.  each window, save for the GDB and source code, are
+    ;; persistent and cannot contain other buffers than what they're created
+    ;; with.
+    (set-window-buffer      w-io          (gdb-get-buffer-create 'gdb-inferior-io))
+    (set-window-dedicated-p w-io t)
+    (set-window-buffer      w-breakpoints (gdb-get-buffer-create 'gdb-breakpoints-buffer))
+    (set-window-dedicated-p w-breakpoints t)
+    (set-window-buffer      w-locals      (gdb-get-buffer-create 'gdb-locals-buffer))
+    (set-window-dedicated-p w-locals t)
+    (set-window-buffer      w-stack       (gdb-get-buffer-create 'gdb-stack-buffer))
+    (set-window-dedicated-p w-stack t)
+    (set-window-buffer      w-gdb          gud-comint-buffer)
+    (set-window-buffer      w-source       c-buffer)
+
+    ;; put the focus back to the source code.
+    (select-window w-source)
+    ))
+
+;; wrap the entry point to the debugger so we can maintain pre-debugging window
+;; state.
+(defadvice gdb (around args activate)
+  "Maintains the current window configuration so GDB's windows do not wreck havoc."
+  ;; maintain the current state of the windows in the active frame so we can put
+  ;; things back after GDB is done.
+  (setq global-config-editing (current-window-configuration))
+
+  ;; use the current window's contents as the source code buffer in our layout.
+  (let ((c-buffer (window-buffer (selected-window))))
+    ad-do-it
+    (set-gdb-layout c-buffer)))
+
+;; put the windows back the way they were once GDB exits.
+(defadvice gdb-reset (around args activate)
+  "Resets the post-debugging window configuration back to what it was before GDB started."
+  ad-do-it
+  (set-window-configuration global-config-editing))
+
 ;; ================================ MATLAB ===================================
 
 (autoload 'matlab-mode  "matlab" "MATLAB editing mode." t)

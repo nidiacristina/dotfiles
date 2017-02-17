@@ -1,0 +1,12 @@
+% add our local Octave directories into the search path.
+addpath( genpath( sprintf( '%s/octave', getenv( 'HOME' ) ) ) )
+
+% force our prompt to the default value so we can run Octave as an inferior
+% process within Emacs.  without this, older versions of octave-inf cannot
+% properly detect Octave's REPL.
+PS1( '>> ' )
+
+% run any start up function we find in our path.
+if exist( 'startup' ) == 2
+   startup
+end

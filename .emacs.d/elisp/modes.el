@@ -200,6 +200,30 @@ display it as the source, otherwise use the current buffer."
 (unless matlab-mode-p
   (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode)))
 
+;; make sure we can run Octave as an inferior process.
+(autoload 'run-octave "octave-inf" "Interactive Octave mode." t)
+
+;; older versions of Emacs (24.3.y and older) need to be told what prompt to
+;; look for.  from here:
+;;
+;;    https://savannah.gnu.org/bugs/?41099#comment4
+(setq inferior-octave-prompt ">> ")
+
+;; make sure we're not attempting to start a GUI.  new versions of octave-mode
+;; (Emacs 24.4 and newer) add this to deal with new versions of Octave, though
+;; this handles older versions.  additionally, silence the startup messages.
+;;
+;; NOTE: adding --line-editing here probably won't fix older Octave's management
+;;       of closed figures and you need to directly edit the octave-inf.elc file
+;;       directly as found here:
+;;
+;;          https://stackoverflow.com/questions/25436702/how-to-get-octaves-plot-to-work-under-emacs
+;;
+;;       octave-inf appends any arguments below to "--no-line-editing" and older
+;;       versions do not let a later "--line-editing" supersede the earlier
+;;       option.
+(setq inferior-octave-startup-args '("--no-gui" "-q"))
+
 ;; Octave mode is, umm, less than helpful in providing knobs to configure
 ;; its formatting so we fiddle with its internals to make it usable.  hence
 ;; the hook to modify buffer-local variables.

@@ -306,3 +306,19 @@ display it as the source, otherwise use the current buffer."
 ;;
 ;; for a concise cheat sheet on the syntax.
 (setq reb-re-syntax 'string)
+
+;; ============================ Help Functions Plus ==========================
+
+;; queue loading the help-fns+ package whenever its functions are invoked.
+;; these are rarely used so we don't pull the package in unless needed.
+(mapcar (lambda (arg)
+          (autoload arg "help-fns+" "Improved help functions." t))
+        '(describe-buffer
+          describe-command
+          describe-option
+          describe-key-briefly
+          describe-option-of-type
+          describe-copying
+          describe-file
+          describe-keymap
+          find-function-on-key))

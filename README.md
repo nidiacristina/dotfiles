@@ -64,6 +64,15 @@ While fetching each submodule can be done like so:
     done
 ```
 
+## External Software
+Several Emacs packages require external commands to function properly.  Below
+are a list of external packages that should be installed for each Emacs package:
+
+### `Markdown-mode`
+
+* [Pandoc](http://pandoc.org/) is needed to render Markdown files into HTML for
+  previews.  Optional if the mode is only used for syntax highlighting.
+
 # Todo
 A number of things have yet to be consolidated and tested, including:
 

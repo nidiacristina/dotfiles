@@ -9,18 +9,27 @@
   (when (version<= emacs-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher." minver)))
 
-;; add our personal directory and a few key directories to the search path.
+;; specify where our code and packages live, as well as the compatibility
+;; packages needed for them.
 ;;
 ;; NOTE: only the contents of the directories listed here are searched.
 ;;       load-path is not processed recursively.
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
                    "~/.emacs.d/elisp/mirror/help-fns+"
+                   "~/.emacs.d/elisp/markdown-mode"
                    "~/.emacs.d/elisp/matlab"))
+(setq compatibility-paths '"~/.emacs.d/elisp/mirror/cl-lib")
 
+;; add all of the user paths to the front of the search and the compatibility
+;; paths to the back.  this should keep them properly shadowed when loaded on
+;; systems where they're already implemented.
 (mapcar (lambda (arg)
-          (add-to-list 'load-path arg))
-        user-paths)
+	  (add-to-list 'load-path arg))
+	  user-paths)
+(mapcar (lambda (arg)
+	  (add-to-list 'load-path arg) t)
+	  compatibility-paths)
 
 (require 'whitespace)    ; highlight errant whitespace.
 (require 'uniquify)      ; keep buffer names unique as needed.

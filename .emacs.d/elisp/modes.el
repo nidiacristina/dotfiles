@@ -322,3 +322,23 @@ display it as the source, otherwise use the current buffer."
           describe-file
           describe-keymap
           find-function-on-key))
+
+;; ============================== Markdown Mode ==============================
+
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(autoload 'gfm-mode "markdown-mode"
+  "Major mode for editing GitHub-flavored Markdown files" t)
+
+;; handle files with the most specific flavor of Markdown that we can reasonably
+;; expect.
+(setq auto-mode-alist
+      (append '(("README\\.md$" . gfm-mode)
+                ("\\.md$"       . markdown-mode)
+                ("\\.markdown$" . markdown-mode))
+              auto-mode-alist))
+
+;; use Pandoc to export Markdown to other file types, while using MathJax to
+;; render LaTeX equations in HTML exports.  while it uses an external library
+;; (which could be slow/unavailable) it results in a smaller output.
+(setq markdown-command "pandoc --mathjax -t html -s --mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")

@@ -10,3 +10,7 @@
 	path = .emacs.d/elisp/mirror
 	url = git@github.com:gthomsen/emacs-packages-mirror.git
 	branch = master
+[submodule ".emacs.d/elisp/markdown-mode"]
+	path = .emacs.d/elisp/markdown-mode
+	url = git@github.com:jrblevin/markdown-mode.git
+	branch = master

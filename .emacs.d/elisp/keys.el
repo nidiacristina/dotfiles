@@ -7,8 +7,9 @@
 ;;     %            Jump to matching parenthesis/bracket/brace.
 ;;    C-c o         Open a buffer containing all lines matching a search.
 ;;    M-i           Read a man page.
-;;    C-x .         Jump to a symbol's definition.
-;;    C-x ,         Search for all symbols containing the specified search.
+;;    M-.           Jump to a symbol's definition.
+;;    M-,           Search for all symbols containing the specified search.
+;;    M-*           Pop the marker stack.
 ;;
 
 ;; compile the current buffer and have the compilation's output in another

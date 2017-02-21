@@ -263,6 +263,15 @@
             ;; (read: language agnostic).
             (local-unset-key (kbd "M-."))
             ))
+
+;; ============================= Buffers Menu Mode ===========================
+;;
+;;                          No new keys are defined.
+
+;; unmask our buffer navigation key as we can simply hit enter to visit a buffer
+;; in the list.
+(define-key Buffer-menu-mode-map (kbd "C-o") nil)
+
 ;; =========================== Emacs Lisp Mode ===============================
 ;;
 ;;    M-I         Describe the symbol at the current point.

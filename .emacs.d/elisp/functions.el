@@ -21,6 +21,17 @@
         (when (and template-path (file-exists-p template-path))
           (insert-file-contents template-path))))))
 
+;; gitsum hasn't been updated since it came out in 2008 and does not support
+;; commit templates either.  this prepends it to the log buffer when it exists.
+(eval-after-load "gitsum"
+  (defadvice gitsum-commit (after gitsum-insert-commit-template activate compile)
+    "Inserts the Git commit template into the log buffer if it exists."
+    (let ((buffer (get-buffer-create "*gitsum-commit*")))
+      (with-current-buffer buffer
+        (let ((template-path (git-config "commit.template")))
+          (when (and template-path (file-exists-p template-path))
+            (insert-file-contents template-path)))))))
+
 ;; =========================== Buffer Management =============================
 
 ;; I never switch to a non-existent buffer by name to create it (I'll just visit

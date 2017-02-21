@@ -16,6 +16,7 @@
 ;;       load-path is not processed recursively.
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
+                   "~/.emacs.d/elisp/gitsum"
                    "~/.emacs.d/elisp/mirror/help-fns+"
                    "~/.emacs.d/elisp/markdown-mode"
                    "~/.emacs.d/elisp/matlab"))

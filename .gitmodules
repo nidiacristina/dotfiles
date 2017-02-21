@@ -14,3 +14,7 @@
 	path = .emacs.d/elisp/markdown-mode
 	url = git@github.com:jrblevin/markdown-mode.git
 	branch = master
+[submodule ".emacs.d/elisp/gitsum"]
+	path = .emacs.d/elisp/gitsum
+	url = git@github.com:chneukirchen/gitsum.git
+	branch = master

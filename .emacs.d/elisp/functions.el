@@ -32,6 +32,46 @@
           (when (and template-path (file-exists-p template-path))
             (insert-file-contents template-path)))))))
 
+;; describe the Lisp symbol at, or near, the point.  checks the symbol beneath
+;; the point to see if its a function or a variable and describes it.  if the
+;; point isn't on a symbol, but is in a function call, the surrounding call is
+;; described instead.
+;;
+;;  originally from:
+;;
+;;    https://www.emacswiki.org/emacs/DescribeThingAtPoint
+;;
+(defun describe-symbol-at-point ()
+  "Show the documentation of the Elisp function and variable near point.
+
+This checks in turn for:
+-- a function name where point is
+-- a variable name where point is
+-- a surrounding function call
+"
+  (interactive)
+  (let (sym)
+    (cond
+     ;; function at point.
+     ;;
+     ;; NOTE: stolen from function-at-point so that it only identifies what is
+     ;;       at the point.
+     ((setq sym (ignore-errors
+                  (with-syntax-table emacs-lisp-mode-syntax-table
+                    (save-excursion
+                      (or (not (zerop (skip-syntax-backward "_w")))
+                          (eq (char-syntax (char-after (point))) ?w)
+                          (eq (char-syntax (char-after (point))) ?_)
+                          (forward-sexp -1))
+                      (skip-chars-forward "`'")
+                      (let ((obj (read (current-buffer))))
+                        (and (symbolp obj) (fboundp obj) obj))))))
+      (describe-function sym))
+     ;; variable at point.
+     ((setq sym (variable-at-point)) (describe-variable sym))
+     ;; function in surrounding sexp.
+     ((setq sym (function-at-point)) (describe-function sym)))))
+
 ;; =========================== Buffer Management =============================
 
 ;; I never switch to a non-existent buffer by name to create it (I'll just visit

@@ -263,3 +263,10 @@
             ;; (read: language agnostic).
             (local-unset-key (kbd "M-."))
             ))
+;; =========================== Emacs Lisp Mode ===============================
+;;
+;;    M-I         Describe the symbol at the current point.
+;;
+
+;; provide mode-specific documentation near the man pages key binding.
+(define-key emacs-lisp-mode-map (kbd "M-I") 'describe-symbol-at-point)

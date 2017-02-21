@@ -73,6 +73,11 @@ are a list of external packages that should be installed for each Emacs package:
 * [Pandoc](http://pandoc.org/) is needed to render Markdown files into HTML for
   previews.  Optional if the mode is only used for syntax highlighting.
 
+### `flymake`
+
+* [Pyflakes](https://pypi.python.org/pypi/pyflakes) is needed to identify
+  warnings and errors in Python code.
+
 # Todo
 A number of things have yet to be consolidated and tested, including:
 

@@ -18,3 +18,11 @@
 	path = .emacs.d/elisp/gitsum
 	url = git@github.com:chneukirchen/gitsum.git
 	branch = master
+[submodule ".emacs.d/elisp/flymake-easy"]
+	path = .emacs.d/elisp/flymake-easy
+	url = git@github.com:purcell/flymake-easy.git
+	branch = master
+[submodule ".emacs.d/elisp/flymake-python-pyflakes"]
+	path = .emacs.d/elisp/flymake-python-pyflakes
+	url = git@github.com:purcell/flymake-python-pyflakes.git
+	branch = master

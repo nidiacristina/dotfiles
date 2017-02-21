@@ -279,3 +279,21 @@
 
 ;; provide mode-specific documentation near the man pages key binding.
 (define-key emacs-lisp-mode-map (kbd "M-I") 'describe-symbol-at-point)
+
+;; ============================ Flymake Mode =================================
+;;
+;;    C-c }       Go to the next error.
+;;    C-c {       Go to the previous error.
+;;
+
+;; either create a new mode map and add it to the minor mode list, or update an
+;; existing map if someone has already defined it.  afaik, Flymake does not
+;; provide one by default.
+(defvar flymake-mode-map (make-sparse-keymap))
+(define-key flymake-mode-map (kbd "C-c }") 'flymake-goto-next-error)
+(define-key flymake-mode-map (kbd "C-c {") 'flymake-goto-prev-error)
+
+(or (assoc 'flymake-mode minor-mode-map-alist)
+    (setq minor-mode-map-alist
+          (cons (cons 'flymake-mode flymake-mode-map)
+                minor-mode-map-alist)))

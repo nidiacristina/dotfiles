@@ -38,6 +38,34 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
+;; =============================== Python Mode ===============================
+
+(autoload 'flymake-python-pyflakes-load "flymake-python-pyflakes"
+  "Enable flymake with Pyflakes in Python mode." nil)
+
+;; setup overlays that display flymake information in the minibuffer.  this
+;; provides a non-intrusive way to see them when we don't want to (or cannot)
+;; hover the mouse over a line.
+(defun my-python-mode-hook ()
+  ;; boostrap pyflakes scanning once when we edit Python code.
+  (flymake-python-pyflakes-load)
+
+  ;; show the current line's pyflake info/warning/error after we idle for a bit.
+  ;; we set this locally to the buffer so we don't have useless idle timers for
+  ;; every buffer after we edit Python code.
+  (make-local-variable 'help-at-pt-timer-delay)
+  (make-local-variable 'help-at-pt-display-when-idle)
+
+  (setq help-at-pt-timer-delay 0.9)
+  (setq help-at-pt-display-when-idle '(flymake-overlay))
+
+  ;; NOTE: we have to manually set the timer otherwise simply setting the
+  ;;       variables will have no effect.
+  (help-at-pt-set-timer)
+  )
+
+(add-hook 'python-mode-hook 'my-python-mode-hook)
+
 ;; ============================== Fortran ====================================
 
 (autoload 'align-f90-load "align-f90" "Enable alignment in Fortran modes." nil)

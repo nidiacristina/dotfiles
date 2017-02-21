@@ -31,6 +31,13 @@
   "Face for highlighting erroneous whitespace."
   :group 'whitespace)
 
+;; underline warnings and errors from Flymake rather than provide a potentially
+;; clashing face.  this also provides a simple, uncolored underline effect on
+;; the terminal where the underline cannot be colored.
+(custom-set-faces
+ '(flymake-errline  ((((class color)) (:underline "red"))))
+ '(flymake-warnline ((((class color)) (:underline "yellow")))))
+
 ;; =========================== Notifications =================================
 
 ;; disable the warning about the dangers of narrowed buffers - we understand

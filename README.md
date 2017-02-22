@@ -78,6 +78,12 @@ are a list of external packages that should be installed for each Emacs package:
 * [Pyflakes](https://pypi.python.org/pypi/pyflakes) is needed to identify
   warnings and errors in Python code.
 
+## Setup
+
+* Jedi needs a one time configuration from within Emacs before it can be used:
+
+   `M-x jedi:install-server`
+
 # Todo
 A number of things have yet to be consolidated and tested, including:
 

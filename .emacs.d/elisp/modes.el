@@ -42,13 +42,19 @@
 
 (autoload 'flymake-python-pyflakes-load "flymake-python-pyflakes"
   "Enable flymake with Pyflakes in Python mode." nil)
+(autoload 'jedi:setup "jedi" 
+  "Enable jedi for completion in Python mode." t)
+
+;; provide autocompletion on module symbols (foo.<completion>).
+(setq jedi:complete-on-dot t)
 
 ;; setup overlays that display flymake information in the minibuffer.  this
 ;; provides a non-intrusive way to see them when we don't want to (or cannot)
 ;; hover the mouse over a line.
 (defun my-python-mode-hook ()
-  ;; boostrap pyflakes scanning once when we edit Python code.
+  ;; boostrap pyflakes scanning and Jedi once when we edit Python code.
   (flymake-python-pyflakes-load)
+  (jedi:setup)
 
   ;; show the current line's pyflake info/warning/error after we idle for a bit.
   ;; we set this locally to the buffer so we don't have useless idle timers for
@@ -370,3 +376,7 @@ display it as the source, otherwise use the current buffer."
 ;; render LaTeX equations in HTML exports.  while it uses an external library
 ;; (which could be slow/unavailable) it results in a smaller output.
 (setq markdown-command "pandoc --mathjax -t html -s --mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+
+;; ============================ Python Environment ===========================
+
+(setq python-environment-directory "~/.virtual-environments")

@@ -297,3 +297,20 @@
     (setq minor-mode-map-alist
           (cons (cons 'flymake-mode flymake-mode-map)
                 minor-mode-map-alist)))
+
+;; ============================== Python Mode ================================
+;;
+;;    M-I         Show docstring for current symbol.
+;;    M-.         Jump to a symbol's definition.
+;;    M-*         Pop the marker stack.
+;;
+
+(eval-after-load "jedi"
+  '(progn
+     ;; provide mode-specific documentation near the man pages key binding.
+     (define-key jedi-mode-map (kbd "M-I") 'jedi:show-doc)
+
+     ;; maintain compatibility with the generic lookup/return key bindings setup
+     ;; at the top of this file.
+     (define-key jedi-mode-map (kbd "M-.") 'jedi:goto-definition)
+     (define-key jedi-mode-map (kbd "M-*") 'jedi:goto-definition-pop-marker)))

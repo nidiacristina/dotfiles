@@ -26,3 +26,55 @@
 	path = .emacs.d/elisp/flymake-python-pyflakes
 	url = git@github.com:purcell/flymake-python-pyflakes.git
 	branch = master
+[submodule ".emacs.d/auto-complete"]
+	path = .emacs.d/auto-complete
+	url = git@github.com:auto-complete/auto-complete.git
+	branch = master
+[submodule ".emacs.d/popup"]
+	path = .emacs.d/popup
+	url = git@github.com:auto-complete/popup-el.git
+	branch = master
+[submodule ".emacs.d/jedi"]
+	path = .emacs.d/jedi
+	url = git@github.com:tkf/emacs-jedi.git
+	branch = master
+[submodule ".emacs.d/epc"]
+	path = .emacs.d/epc
+	url = git@github.com:kiwanami/emacs-epc.git
+	branch = master
+[submodule ".emacs.d/deferred"]
+	path = .emacs.d/deferred
+	url = git@github.com:kiwanami/emacs-deferred.git
+	branch = master
+[submodule ".emacs.d/ctable"]
+	path = .emacs.d/ctable
+	url = git@github.com:kiwanami/emacs-ctable.git
+	branch = master
+[submodule ".emacs.d/elisp/auto-complete"]
+	path = .emacs.d/elisp/auto-complete
+	url = git@github.com:auto-complete/auto-complete.git
+	branch = master
+[submodule ".emacs.d/elisp/popup"]
+	path = .emacs.d/elisp/popup
+	url = git@github.com:auto-complete/popup-el.git
+	branch = master
+[submodule ".emacs.d/elisp/jedi"]
+	path = .emacs.d/elisp/jedi
+	url = git@github.com:tkf/emacs-jedi.git
+	branch = master
+[submodule ".emacs.d/elisp/epc"]
+	path = .emacs.d/elisp/epc
+	url = git@github.com:kiwanami/emacs-epc.git
+	branch = master
+[submodule ".emacs.d/elisp/deferred"]
+	path = .emacs.d/elisp/deferred
+	url = git@github.com:kiwanami/emacs-deferred.git
+	branch = master
+[submodule ".emacs.d/elisp/ctable"]
+	path = .emacs.d/elisp/ctable
+	url = git@github.com:kiwanami/emacs-ctable.git
+	branch = master
+[submodule ".emacs.d/elisp/python-environment"]
+	path = .emacs.d/elisp/python-environment
+	url = git@github.com:tkf/emacs-python-environment.git
+	branch = master

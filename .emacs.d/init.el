@@ -16,12 +16,20 @@
 ;;       load-path is not processed recursively.
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
+                   "~/.emacs.d/elisp/auto-complete"
+                   "~/.emacs.d/elisp/ctable"
+                   "~/.emacs.d/elisp/deferred"
+                   "~/.emacs.d/elisp/epc"
                    "~/.emacs.d/elisp/flymake-easy"
                    "~/.emacs.d/elisp/flymake-python-pyflakes"
                    "~/.emacs.d/elisp/gitsum"
                    "~/.emacs.d/elisp/mirror/help-fns+"
+                   "~/.emacs.d/elisp/jedi"
                    "~/.emacs.d/elisp/markdown-mode"
-                   "~/.emacs.d/elisp/matlab"))
+                   "~/.emacs.d/elisp/matlab"
+                   "~/.emacs.d/elisp/popup"
+                   "~/.emacs.d/elisp/mirror/pos-tip"
+                   "~/.emacs.d/elisp/python-environment"))
 (setq compatibility-paths '"~/.emacs.d/elisp/mirror/cl-lib")
 
 ;; add all of the user paths to the front of the search and the compatibility

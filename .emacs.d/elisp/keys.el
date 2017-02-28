@@ -272,13 +272,13 @@
 ;; in the list.
 (define-key Buffer-menu-mode-map (kbd "C-o") nil)
 
-;; =========================== Emacs Lisp Mode ===============================
+;; ================================= Lisp ====================================
 ;;
 ;;    M-I         Describe the symbol at the current point.
 ;;
 
 ;; provide mode-specific documentation near the man pages key binding.
-(define-key emacs-lisp-mode-map (kbd "M-I") 'describe-symbol-at-point)
+(define-key lisp-mode-shared-map (kbd "M-I") 'describe-symbol-at-point)
 
 ;; ============================ Flymake Mode =================================
 ;;

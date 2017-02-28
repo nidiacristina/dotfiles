@@ -386,6 +386,23 @@ display it as the source, otherwise use the current buffer."
 
 (setq python-environment-directory "~/.virtual-environments")
 
+;; ========================== Emacs IPython Notebooks ========================
+
+;; setup all of the EIN autoloads.
+(require 'ein-loaddefs)
+
+;; ensure that we make working with Python code as easy as possible by tying in
+;; Jedi and auto-complete.
+(setq ein:use-auto-complete t)
+(add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
+
+;; only configure notebooks to handle Python and text.  the MuMaMo support
+;; offers nothing useful at the expense of pulling in unmaintained packages that
+;; spew warnings and dominate *Messages*.  likely I'm doing something wrong
+;; with the configuration though I can't figure out what...
+(setq ein:notebook-modes '(ein:notebook-python-mode
+                           ein:notebook-plain-mode))
+
 ;; ============================= Chrome Editing ==============================
 
 (autoload 'edit-server-start "edit-server"

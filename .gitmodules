@@ -86,3 +86,19 @@
 	path = .emacs.d/elisp/mediawiki
 	url = git@github.com:hexmode/mediawiki-el.git
 	branch = master
+[submodule ".emacs.d/elisp/fuzzy"]
+	path = .emacs.d/elisp/fuzzy
+	url = git@github.com:auto-complete/fuzzy-el.git
+	branch = master
+[submodule ".emacs.d/elisp/request"]
+	path = .emacs.d/elisp/request
+	url = git@github.com:tkf/emacs-request.git
+	branch = master
+[submodule ".emacs.d/elisp/websocket"]
+	path = .emacs.d/elisp/websocket
+	url = git@github.com:ahyatt/emacs-websocket.git
+	branch = master
+[submodule ".emacs.d/elisp/emacs-ipython-notebook"]
+	path = .emacs.d/elisp/emacs-ipython-notebook
+	url = git@github.com:millejoh/emacs-ipython-notebook.git
+	branch = master

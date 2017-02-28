@@ -26,8 +26,10 @@
                    "~/.emacs.d/elisp/ctable"
                    "~/.emacs.d/elisp/deferred"
                    "~/.emacs.d/elisp/epc"
+                   "~/.emacs.d/elisp/emacs-ipython-notebook/lisp"
                    "~/.emacs.d/elisp/flymake-easy"
                    "~/.emacs.d/elisp/flymake-python-pyflakes"
+                   "~/.emacs.d/elisp/fuzzy"
                    "~/.emacs.d/elisp/gitsum"
                    "~/.emacs.d/elisp/mirror/help-fns+"
                    "~/.emacs.d/elisp/jedi"
@@ -36,8 +38,11 @@
                    "~/.emacs.d/elisp/mediawiki"
                    "~/.emacs.d/elisp/popup"
                    "~/.emacs.d/elisp/mirror/pos-tip"
-                   "~/.emacs.d/elisp/python-environment"))
-(setq compatibility-paths '"~/.emacs.d/elisp/mirror/cl-lib")
+                   "~/.emacs.d/elisp/python-environment"
+                   "~/.emacs.d/elisp/request"
+                   "~/.emacs.d/elisp/websocket"))
+(setq compatibility-paths '("~/.emacs.d/elisp/mirror/cl-lib"
+                            "~/.emacs.d/elisp/mirror/cl-generic"))
 
 ;; add all of the user paths to the front of the search and the compatibility
 ;; paths to the back.  this should keep them properly shadowed when loaded on

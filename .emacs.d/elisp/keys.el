@@ -315,6 +315,22 @@
      (define-key jedi-mode-map (kbd "M-.") 'jedi:goto-definition)
      (define-key jedi-mode-map (kbd "M-*") 'jedi:goto-definition-pop-marker)))
 
+;; ========================== Emacs IPython Notebooks ========================
+;;
+;;    M-N           Next cell input.
+;;    M-P           Previous cell input.
+;;
+
+;; keep our other-window-backward binding and move the previous input binding to
+;; the upper case version.  we don't have C-p for the previous input anyway
+;; (which is common with readline-enabled applications, so this is close enough.
+(eval-after-load "ein-notebook"
+  '(progn
+     (define-key ein:notebook-mode-map (kbd "M-p") nil)
+     (define-key ein:notebook-mode-map (kbd "M-n") nil)
+     (define-key ein:notebook-mode-map (kbd "M-P") 'ein:worksheet-previous-input-history)
+     (define-key ein:notebook-mode-map (kbd "M-N") 'ein:worksheet-next-input-history)))
+
 ;; ============================== MediaWiki Mode =============================
 ;;
 ;;    M-N           Next section.

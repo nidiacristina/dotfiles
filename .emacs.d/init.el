@@ -22,6 +22,7 @@
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
                    "~/.emacs.d/elisp/auto-complete"
+                   "~/.emacs.d/elisp/chrome-editing/servers"
                    "~/.emacs.d/elisp/ctable"
                    "~/.emacs.d/elisp/deferred"
                    "~/.emacs.d/elisp/epc"

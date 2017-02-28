@@ -78,6 +78,13 @@ are a list of external packages that should be installed for each Emacs package:
 * [Pyflakes](https://pypi.python.org/pypi/pyflakes) is needed to identify
   warnings and errors in Python code.
 
+### Edit with Emacs - Chrome Plugin
+
+* [Edit with Emacs](https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh) is
+  needed to interact with the `edit-server` package.  Note that once editing is
+  requested Emacs needs to have the server started (it's disabled by default)
+  via `M-x edit-server-start`.
+
 ## Setup
 
 * Jedi needs a one time configuration from within Emacs before it can be used:

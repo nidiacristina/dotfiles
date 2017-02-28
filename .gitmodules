@@ -78,3 +78,7 @@
 	path = .emacs.d/elisp/python-environment
 	url = git@github.com:tkf/emacs-python-environment.git
 	branch = master
+[submodule ".emacs.d/elisp/chrome-editing"]
+	path = .emacs.d/elisp/chrome-editing
+	url = git@github.com:stsquad/emacs_chrome.git
+	branch = master

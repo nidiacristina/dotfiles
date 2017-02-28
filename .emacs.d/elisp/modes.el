@@ -380,3 +380,28 @@ display it as the source, otherwise use the current buffer."
 ;; ============================ Python Environment ===========================
 
 (setq python-environment-directory "~/.virtual-environments")
+
+;; ============================= Chrome Editing ==============================
+
+(autoload 'edit-server-start "edit-server"
+  "Start a server to handle text entry edit requests from Chrome" t)
+
+;; specify where the server runs.  this needs to match the browser's
+;; configuration.
+(setq edit-server-port 9292)
+
+;; edit text boxes in an existing Emacs instance rather than creating a new
+;; frame just for the occasion.
+(setq edit-server-new-frame nil)
+
+;; handle text boxes from specific URLs with a given mode.  we assume all
+;; Github inputs allow Markdown.
+(setq edit-server-url-major-mode-alist
+      '(("github\\.com" . gfm-mode)))
+
+;; uncomment this if you want to automatically start the edit server and let
+;; Chrome connect to the Emacs instance.
+;;
+;; NOTE: blindly enabling this can be a security risk on multi-user systems!
+;;
+;; (edit-server-start)

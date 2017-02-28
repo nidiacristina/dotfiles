@@ -21,7 +21,7 @@ load_available_packages( target_packages );
 
 end
 
-function [available_indices, unavailable_indices] = load_available_packges( target_packages )
+function [available_indices, unavailable_indices] = load_available_packages( target_packages )
 % [available_indices, unavailable_indices] = load_available_packges( target_packages )
 %
 % Loads Octave packages if they're available.  Takes a cell of package names and

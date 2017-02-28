@@ -314,3 +314,14 @@
      ;; at the top of this file.
      (define-key jedi-mode-map (kbd "M-.") 'jedi:goto-definition)
      (define-key jedi-mode-map (kbd "M-*") 'jedi:goto-definition-pop-marker)))
+
+;; ============================== MediaWiki Mode =============================
+;;
+;;    M-N           Next section.
+;;    M-P           Previous section.
+;;
+
+(eval-after-load "mediawiki"
+  '(progn
+     (define-key mediawiki-mode-map (kbd "M-P") 'mediawiki-prev-header)
+     (define-key mediawiki-mode-map (kbd "M-N") 'mediawiki-next-header)))

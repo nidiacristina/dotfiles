@@ -33,6 +33,7 @@
                    "~/.emacs.d/elisp/jedi"
                    "~/.emacs.d/elisp/markdown-mode"
                    "~/.emacs.d/elisp/matlab"
+                   "~/.emacs.d/elisp/mediawiki"
                    "~/.emacs.d/elisp/popup"
                    "~/.emacs.d/elisp/mirror/pos-tip"
                    "~/.emacs.d/elisp/python-environment"))

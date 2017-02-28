@@ -377,6 +377,11 @@ display it as the source, otherwise use the current buffer."
 ;; (which could be slow/unavailable) it results in a smaller output.
 (setq markdown-command "pandoc --mathjax -t html -s --mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 
+;; =============================== MediaWiki =================================
+
+(autoload 'mediawiki-mode "mediawiki"
+  "Major mode for editing MediaWiki pages." t)
+
 ;; ============================ Python Environment ===========================
 
 (setq python-environment-directory "~/.virtual-environments")
@@ -397,7 +402,8 @@ display it as the source, otherwise use the current buffer."
 ;; handle text boxes from specific URLs with a given mode.  we assume all
 ;; Github inputs allow Markdown.
 (setq edit-server-url-major-mode-alist
-      '(("github\\.com" . gfm-mode)))
+      '(("github\\.com" . gfm-mode)
+        ("mediawiki"    . mediawiki-mode)))
 
 ;; uncomment this if you want to automatically start the edit server and let
 ;; Chrome connect to the Emacs instance.

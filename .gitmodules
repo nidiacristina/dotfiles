@@ -82,3 +82,7 @@
 	path = .emacs.d/elisp/chrome-editing
 	url = git@github.com:stsquad/emacs_chrome.git
 	branch = master
+[submodule ".emacs.d/elisp/mediawiki"]
+	path = .emacs.d/elisp/mediawiki
+	url = git@github.com:hexmode/mediawiki-el.git
+	branch = master

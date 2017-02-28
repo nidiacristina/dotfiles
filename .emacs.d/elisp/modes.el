@@ -428,3 +428,26 @@ display it as the source, otherwise use the current buffer."
 ;; NOTE: blindly enabling this can be a security risk on multi-user systems!
 ;;
 ;; (edit-server-start)
+
+;; =================================== Git ===================================
+
+;; let us start gitsum directly by calling it's entry function.
+;;
+;; NOTE: loading gitsum this way will *not* patch itself into the git-status
+;;       mode map can cannot be invoked via key press.  it is still available
+;;       via explicit call of it's functions.
+;;
+(autoload 'gitsum "gitsum"
+  "Interactive patch scheduling with Git ala darcsum." t)
+
+;; load gitsum whenever we enter git-status-mode.  this is the preferred
+;; method for loading the package as it updates git-status' key map so
+;; gitsum can be called.
+(defun my-git-status-mode-hook ()
+
+  ;; NOTE: we don't want to invoke gitsum here as that would bypass git-status'
+  ;;       buffer and start gitsum immediately.
+  (require 'gitsum)
+  )
+
+(add-hook 'git-status-mode-hook 'my-git-status-mode-hook)

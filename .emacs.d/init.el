@@ -9,6 +9,11 @@
   (when (version<= emacs-version minver)
     (error "Your Emacs is too old -- this config requires v%s or higher." minver)))
 
+;; pull in any site-local configuration that needs to occur before ours.
+(let ((site-file "~/.emacs.d/site.el"))
+  (when (file-readable-p site-file)
+    (load-file site-file)))
+
 ;; specify where our code and packages live, as well as the compatibility
 ;; packages needed for them.
 ;;

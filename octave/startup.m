@@ -45,15 +45,22 @@ function [available_indices, unavailable_indices] = load_available_packages( tar
 installed_packages = cellfun( @(x) x.name, pkg( 'list' ), ...
                               'UniformOutput', false );
 
-% jump through some hoops to find each of the target packages installed on the
-% system as a vector we can use as indices.
-available_indices                = cellfun( @(x) strfind( installed_packages, x ), target_packages );
-empty_indices                    = cellfun( @(x) isempty( x ), available_indices );
+% partition the requested packages into available and unavailable.
+if ~isempty( installed_packages )
+    % identify the target packages that are installed and then compute indices
+    % from that.
+    available_indices                = cellfun( @(x) strfind( installed_packages, x ), target_packages );
+    empty_indices                    = cellfun( @(x) isempty( x ), available_indices );
 
-available_indices(empty_indices) = [];
-available_indices                = [available_indices{:}];
-unavailable_indices              = setdiff( 1:length( target_packages ), ...
-                                            available_indices );
+    available_indices(empty_indices) = [];
+    available_indices                = [available_indices{:}];
+    unavailable_indices              = setdiff( 1:length( target_packages ), ...
+                                                available_indices );
+else
+    % partitioning is easy when nothing is installed.
+    available_indices   = [];
+    unavailable_indices = 1:length( target_packages );
+end
 
 % load each of the packages we want and are available.
 cellfun( @(x) pkg( 'load', x ), { target_packages{available_indices} } );

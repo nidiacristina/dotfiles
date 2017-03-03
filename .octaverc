@@ -6,6 +6,31 @@ addpath( genpath( sprintf( '%s/octave', getenv( 'HOME' ) ) ) )
 % properly detect Octave's REPL.
 PS1( '>> ' )
 
+% query the system for the major component of the OS' version so we can
+% put user-specific Octave packages somewhere that won't conflict.
+% while not terribly fine grained, major OS release should track important
+% ABIs (libstdc++, GTK/Qt versions, etc) so we can have a shared ${HOME}
+% with different OSs.
+%
+% NOTE: this is nowhere close to fool proof, though is good enough for
+%       current needs.
+%
+% odds are good that we'll never be on a shared system that doesn't
+% support the LSB so we don't bother to handle that case.
+[status, os_major_version] = system( 'lsb_release -sr 2>/dev/null | cut -f1 -d.' );
+if ~status &&  ~isempty( os_major_version )
+    % convert to a number and then back to a string so excess whitespace is
+    % trimmed.
+    package_directory = sprintf( '%s/.octave/%d', ...
+                                 getenv( 'HOME' ), str2num( os_major_version ) );
+    mkdir( package_directory );
+    pkg( 'prefix', package_directory );
+
+    % make sure we have an OS-specific packages list, otherwise one OS will see
+    % another's packages and get confused.
+    pkg( 'local_list', sprintf( '%s/octave_packages', package_directory ) );
+end
+
 % run any start up function we find in our path.
 if exist( 'startup' ) == 2
    startup

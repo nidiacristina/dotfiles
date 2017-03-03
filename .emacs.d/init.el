@@ -48,11 +48,11 @@
 ;; paths to the back.  this should keep them properly shadowed when loaded on
 ;; systems where they're already implemented.
 (mapcar (lambda (arg)
-	  (add-to-list 'load-path arg))
-	  user-paths)
+      (add-to-list 'load-path arg))
+      user-paths)
 (mapcar (lambda (arg)
-	  (add-to-list 'load-path arg) t)
-	  compatibility-paths)
+      (add-to-list 'load-path arg) t)
+      compatibility-paths)
 
 (require 'whitespace)    ; highlight errant whitespace.
 (require 'uniquify)      ; keep buffer names unique as needed.

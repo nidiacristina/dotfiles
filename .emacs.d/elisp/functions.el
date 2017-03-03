@@ -28,8 +28,8 @@
   (let ((buffer (get-buffer-create "*gitsum-commit*")))
     (with-current-buffer buffer
       (let ((template-path (git-config "commit.template")))
-	(when (and template-path (file-exists-p template-path))
-	  (insert-file-contents template-path))))))
+        (when (and template-path (file-exists-p template-path))
+          (insert-file-contents template-path))))))
 
 ;; describe the Lisp symbol at, or near, the point.  checks the symbol beneath
 ;; the point to see if its a function or a variable and describes it.  if the

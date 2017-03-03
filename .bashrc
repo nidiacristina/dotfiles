@@ -14,7 +14,7 @@ if [ -d "${FRAGMENTS_DIRECTORY}" ]; then
     # NOTE: we need the trailing slash to ensure we search fragment
     #       directories that are symbolic links to another directory.
     #
-    FRAGMENTS=`find "${FRAGMENTS_DIRECTORY}/" -type f -name '[0-9][0-9]-*.sh' -exec readlink -f {} \; | sort`
+    FRAGMENTS=`find -L "${FRAGMENTS_DIRECTORY}/" -type f -name '[0-9][0-9]-*.sh' -exec readlink -f {} \; | sort`
 
     for FRAGMENT in ${FRAGMENTS}; do
         . ${FRAGMENT}

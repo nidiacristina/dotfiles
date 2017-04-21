@@ -146,11 +146,16 @@
 ;; viewing, configures the fringe and cursor for identifying errant whitespace,
 ;; and saves space by turning off the toolbar.
 
-(when (display-graphic-p)
-  ;; disable the graphical toolbar.  the goal is to not touch the mouse and
-  ;; buttons we'll never use simply waste space.
-  (tool-bar-mode -1)
+;; disable the graphical toolbar.  the goal is to not touch the mouse and
+;; buttons we'll never use simply waste space.
+;;
+;; NOTE: we do this regardless of whether Emacs reports graphics capabilities
+;;       since a terminal mode Emacs can spawn graphical frames via emacsclient.
+;;       this ensures said graphical clients have the toolbar disabled if
+;;       they're spawned.
+(tool-bar-mode -1)
 
+(when (display-graphic-p)
   ;; add a distinct marker to the fringe next to empty lines.  note that this
   ;; is a buffer-local variable.
   (setq-default indicate-empty-lines t)

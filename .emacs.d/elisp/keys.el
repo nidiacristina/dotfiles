@@ -341,3 +341,27 @@
   '(progn
      (define-key mediawiki-mode-map (kbd "M-P") 'mediawiki-prev-header)
      (define-key mediawiki-mode-map (kbd "M-N") 'mediawiki-next-header)))
+
+;; ============================ Markdown Mode ================================
+;;
+;;                          No new keys are defined.
+
+;; we don't need to move from link to link, so unmask it so we can move
+;; backwards through the window list.  note that we also unmask moving to
+;; the next link to avoid leaving half-supported features.
+(eval-after-load "markdown-mode"
+  '(progn
+     (define-key markdown-mode-map (kbd "M-n") nil)
+     (define-key markdown-mode-map (kbd "M-p") nil)))
+
+;; ============================== Dired Mode =================================
+;;
+;;                          No new keys are defined.
+
+;; switching between buffers in the current window is more important than
+;; opening the file at point in another window.
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; move the dependency navigation keys to something else typically
+            ;; associated with next/previous.
+            (local-set-key   (kbd "C-o") nil)))

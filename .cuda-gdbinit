@@ -1,0 +1,42 @@
+# pull in the normal GDB initialization so we build from that.  cuda-gdb does
+# not load it by default.
+source ~/.gdbinit
+
+set $loaded_cuda_prototypes = 0
+
+# signatures for CUDA functions we interactively call on a regular basis.  we
+# wrap these in a command so it is loaded at the user's discretion rather than
+# unconditionally.  these aren't available until various CUDA libraries are
+# loaded.
+define load_cuda_prototypes
+    # only load the prototypes if we haven't already.
+    if $loaded_cuda_prototypes == 0
+        set $cudaMemcpy = (cudaError_t(*)(void*, void*, size_t, cudaMemcpyKind)) cudaMemcpy
+
+        set $loaded_cuda_prototypes = 1
+    end
+end
+
+document load_cuda_prototypes
+Usage: load_cuda_prototypes
+
+Loads CUDA-specific prototypes.
+end
+
+# pulls data from a device address to a host address.
+define cudapull
+    load_cuda_prototypes
+
+    set $source      = $arg0
+    set $destination = $arg1
+    set $buffer_size = $arg2
+
+    printf "Copying %d bytes from the device to host ([%#08lx-%#08lx] -> [%#08lx-%#08lx])'\n", $buffer_size, $source, ((void*)$source + $buffer_size), $destination, ((void*)$destination + $buffer_size)
+    set $result      = $cudaMemcpy( $destination, $source, $buffer_size, cudaMemcpyDeviceToHost )
+end
+
+document cudapull
+Usage: cudapull <source> <destination> <size>
+
+Moves <size> bytes from <source> on a GPU to <destination> on the host.
+end

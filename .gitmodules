@@ -102,3 +102,7 @@
 	path = .emacs.d/elisp/emacs-ipython-notebook
 	url = git@github.com:millejoh/emacs-ipython-notebook.git
 	branch = master
+[submodule ".emacs.d/elisp/dockerfile-mode"]
+	path = .emacs.d/elisp/dockerfile-mode
+	url = https://github.com/spotify/dockerfile-mode.git
+        branch = master

@@ -466,3 +466,10 @@ display it as the source, otherwise use the current buffer."
   )
 
 (add-hook 'git-status-mode-hook 'my-git-status-mode-hook)
+
+;; ================================= Dockerfile ==============================
+
+;; add syntax highlighting to Dockerfile's.
+(require 'dockerfile-mode)
+
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))

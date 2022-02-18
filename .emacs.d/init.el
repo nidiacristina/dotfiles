@@ -25,6 +25,7 @@
                    "~/.emacs.d/elisp/chrome-editing/servers"
                    "~/.emacs.d/elisp/ctable"
                    "~/.emacs.d/elisp/deferred"
+                   "~/.emacs.d/elisp/dockerfile"
                    "~/.emacs.d/elisp/epc"
                    "~/.emacs.d/elisp/emacs-ipython-notebook/lisp"
                    "~/.emacs.d/elisp/flymake-easy"

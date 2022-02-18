@@ -76,18 +76,29 @@
 
 (autoload 'align-f90-load "align-f90" "Enable alignment in Fortran modes." nil)
 
-;; the f90 mode has reasonable defaults (arguably there isn't much to
-;; configure) though we ensure align works and turn off block matching blink.
-;; the former makes up for any deficiencies in the mode's default formatting
-;; and the latter reduces frustration as Emacs pauses to show us something
-;; we probably already know about.
+;; set all indentation to four spaces for Fortran90, Fortran95, Fortran 2003 and
+;; Fortran 2008 code.  we turn on Fortran-specific alignment mode and disable
+;; block matching to avoid unnecessary slowdown/distractions during indentation
+;; of an END statement.
 (defun my-f90-mode-hook ()
+  ;; turn on alignment for '=' and '::' (and by proxy, a kludge for '=>').
   (align-f90-load)
 
+  ;; prevent Emacs from blinking the point to the beginning of the block
+  ;; associated with the current END statement.  this makes bulk formatting
+  ;; unnecessarily slow.
   (setq f90-smart-end 'no-blink)
 
-  (setq f90-do-indent 3)
-  (setq f90-if-indent 3)
+  ;; indent everything consistently to four space.
+  (setq f90-do-indent 4)
+  (setq f90-if-indent 4)
+  (setq f90-type-indent 4)
+  (setq f90-program-indent 4)
+  (setq f90-associate-indent 4)
+  (setq f90-critical-indent 4)
+
+  ;; do not continue lines with additional ampersands.
+  (setq f90-beginning-ampersand nil)
   )
 
 (add-hook 'f90-mode-hook 'my-f90-mode-hook)

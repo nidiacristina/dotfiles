@@ -30,6 +30,7 @@
                    "~/.emacs.d/elisp/flymake-easy"
                    "~/.emacs.d/elisp/flymake-python-pyflakes"
                    "~/.emacs.d/elisp/fuzzy"
+                   "~/.emacs.d/elisp/git"
                    "~/.emacs.d/elisp/gitsum"
                    "~/.emacs.d/elisp/mirror/help-fns+"
                    "~/.emacs.d/elisp/jedi"

@@ -431,6 +431,10 @@ display it as the source, otherwise use the current buffer."
 
 ;; =================================== Git ===================================
 
+;; load the legacy 'git-status' and 'git-blame' functions that were originally
+;; provided by Git itself.
+(require 'git)
+
 ;; let us start gitsum directly by calling it's entry function.
 ;;
 ;; NOTE: loading gitsum this way will *not* patch itself into the git-status

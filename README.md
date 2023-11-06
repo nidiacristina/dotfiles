@@ -73,10 +73,24 @@ are a list of external packages that should be installed for each Emacs package:
   previews.  Optional if the mode is only used for syntax highlighting.
 
 ## Setup
+Some setup is required before development can be done with this user
+configuration.  See below for details.
+
+### Git
+The default `user.name` and `user.email` in the provided `.gitconfig are
+hardcoded for the repository owner's convenience.  Please change them
+prior to making commits so changes are not attributed to them!
+
+``` shell
+$ git config --global user.name "John Doe"
+$ git config --global user.email "john.doe@domain.com"
+```
+
+### Emacs
 The following packages need to be installed via MELPA:
-- dockerfile-mode
-- Magit
-- markdown-mode
+- [dockerfile-mode](https://melpa.org/#/dockerfile-mode)
+- [Magit](https://melpa.org/#/magit)
+- [markdown-mode](https://melpa.org/#/markdown-mode)
 
 Launch Emacs and run the following:
 
@@ -88,9 +102,3 @@ M-x package-install RET markdown-mode RET
 ```
 
 Restart Emacs to pick up the full configuration.
-
-# Todo
-A number of things have yet to be consolidated and tested, including:
-
-* Python support.
-* LaTeX support.

@@ -38,40 +38,6 @@
 
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
-;; =============================== Python Mode ===============================
-
-(autoload 'flymake-python-pyflakes-load "flymake-python-pyflakes"
-  "Enable flymake with Pyflakes in Python mode." nil)
-(autoload 'jedi:setup "jedi" 
-  "Enable jedi for completion in Python mode." t)
-
-;; provide autocompletion on module symbols (foo.<completion>).
-(setq jedi:complete-on-dot t)
-
-;; setup overlays that display flymake information in the minibuffer.  this
-;; provides a non-intrusive way to see them when we don't want to (or cannot)
-;; hover the mouse over a line.
-(defun my-python-mode-hook ()
-  ;; boostrap pyflakes scanning and Jedi once when we edit Python code.
-  (flymake-python-pyflakes-load)
-  (jedi:setup)
-
-  ;; show the current line's pyflake info/warning/error after we idle for a bit.
-  ;; we set this locally to the buffer so we don't have useless idle timers for
-  ;; every buffer after we edit Python code.
-  (make-local-variable 'help-at-pt-timer-delay)
-  (make-local-variable 'help-at-pt-display-when-idle)
-
-  (setq help-at-pt-timer-delay 0.9)
-  (setq help-at-pt-display-when-idle '(flymake-overlay))
-
-  ;; NOTE: we have to manually set the timer otherwise simply setting the
-  ;;       variables will have no effect.
-  (help-at-pt-set-timer)
-  )
-
-(add-hook 'python-mode-hook 'my-python-mode-hook)
-
 ;; ============================== Fortran ====================================
 
 (autoload 'align-f90-load "align-f90" "Enable alignment in Fortran modes." nil)
@@ -388,57 +354,9 @@ display it as the source, otherwise use the current buffer."
 ;; (which could be slow/unavailable) it results in a smaller output.
 (setq markdown-command "pandoc --mathjax -t html -s --mathjax=https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
 
-;; =============================== MediaWiki =================================
-
-(autoload 'mediawiki-mode "mediawiki"
-  "Major mode for editing MediaWiki pages." t)
-
 ;; ============================ Python Environment ===========================
 
 (setq python-environment-directory "~/.virtual-environments")
-
-;; ========================== Emacs IPython Notebooks ========================
-
-;; setup all of the EIN autoloads.
-(require 'ein-loaddefs)
-
-;; ensure that we make working with Python code as easy as possible by tying in
-;; Jedi and auto-complete.
-(setq ein:use-auto-complete t)
-(add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
-
-;; only configure notebooks to handle Python and text.  the MuMaMo support
-;; offers nothing useful at the expense of pulling in unmaintained packages that
-;; spew warnings and dominate *Messages*.  likely I'm doing something wrong
-;; with the configuration though I can't figure out what...
-(setq ein:notebook-modes '(ein:notebook-python-mode
-                           ein:notebook-plain-mode))
-
-;; ============================= Chrome Editing ==============================
-
-(autoload 'edit-server-start "edit-server"
-  "Start a server to handle text entry edit requests from Chrome" t)
-
-;; specify where the server runs.  this needs to match the browser's
-;; configuration.
-(setq edit-server-port 9292)
-
-;; edit text boxes in an existing Emacs instance rather than creating a new
-;; frame just for the occasion.
-(setq edit-server-new-frame nil)
-
-;; handle text boxes from specific URLs with a given mode.  we assume all
-;; Github inputs allow Markdown.
-(setq edit-server-url-major-mode-alist
-      '(("github\\.com" . gfm-mode)
-        ("mediawiki"    . mediawiki-mode)))
-
-;; uncomment this if you want to automatically start the edit server and let
-;; Chrome connect to the Emacs instance.
-;;
-;; NOTE: blindly enabling this can be a security risk on multi-user systems!
-;;
-;; (edit-server-start)
 
 ;; =================================== Git ===================================
 

@@ -14,37 +14,22 @@
   (when (file-readable-p site-file)
     (load-file site-file)))
 
-;; specify where our code and packages live, as well as the compatibility
-;; packages needed for them.
+;; use MELPA stable for our upstream package archive.
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+
+;; specify where our code and packages live.  these are all packages that
+;; don't have packages in MELPA.
 ;;
 ;; NOTE: only the contents of the directories listed here are searched.
 ;;       load-path is not processed recursively.
+;;
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
-                   "~/.emacs.d/elisp/auto-complete"
-                   "~/.emacs.d/elisp/chrome-editing/servers"
-                   "~/.emacs.d/elisp/ctable"
-                   "~/.emacs.d/elisp/deferred"
-                   "~/.emacs.d/elisp/dockerfile-mode"
-                   "~/.emacs.d/elisp/epc"
-                   "~/.emacs.d/elisp/emacs-ipython-notebook/lisp"
-                   "~/.emacs.d/elisp/flymake-easy"
-                   "~/.emacs.d/elisp/flymake-python-pyflakes"
-                   "~/.emacs.d/elisp/fuzzy"
                    "~/.emacs.d/elisp/git"
                    "~/.emacs.d/elisp/gitsum"
-                   "~/.emacs.d/elisp/mirror/help-fns+"
-                   "~/.emacs.d/elisp/jedi"
-                   "~/.emacs.d/elisp/markdown-mode"
-                   "~/.emacs.d/elisp/matlab"
-                   "~/.emacs.d/elisp/mediawiki"
-                   "~/.emacs.d/elisp/popup"
-                   "~/.emacs.d/elisp/mirror/pos-tip"
-                   "~/.emacs.d/elisp/python-environment"
-                   "~/.emacs.d/elisp/request"
-                   "~/.emacs.d/elisp/websocket"))
-(setq compatibility-paths '("~/.emacs.d/elisp/mirror/cl-lib"
-                            "~/.emacs.d/elisp/mirror/cl-generic"))
+                   "~/.emacs.d/elisp/matlab"))
 
 ;; add all of the user paths to the front of the search and the compatibility
 ;; paths to the back.  this should keep them properly shadowed when loaded on
@@ -52,9 +37,6 @@
 (mapcar (lambda (arg)
       (add-to-list 'load-path arg))
       user-paths)
-(mapcar (lambda (arg)
-      (add-to-list 'load-path arg) t)
-      compatibility-paths)
 
 (require 'whitespace)    ; highlight errant whitespace.
 (require 'uniquify)      ; keep buffer names unique as needed.

@@ -40,10 +40,9 @@ Automated installation is currently missing.  Copying the entire repo into one's
 home directory or symbolically linking individual files/directories works.
 
 ## Cloning
-Since this repository includes other repositories as submodules (one of which,
-[align-f90](https://github.com/jannisteunissen/align-f90), uses a Github URI),
-you'll need to either 1) recursively clone this repository or 2) fetch each of
-the submodules individually.
+Since this repository includes other repositories as submodules, you'll need to
+either 1) recursively clone this repository or 2) fetch each of the submodules
+individually.
 
 Recursive cloning is available for those who have setup SSH keys with their
 Github account via:
@@ -60,7 +59,7 @@ While fetching each submodule can be done like so:
   $ git config -f .gitmodules submodule.".emacs.d/elisp/align-f90".url \
                   https://github.com/gthomsen/align-f90.git
   $ for MODULE in align-f90 matlab; do \
-       git submodule update --init .emacs.d/elisp/${MODULE};
+       git submodule update --init .emacs.d/elisp/${MODULE}; \
     done
 ```
 
@@ -73,23 +72,20 @@ are a list of external packages that should be installed for each Emacs package:
 * [Pandoc](http://pandoc.org/) is needed to render Markdown files into HTML for
   previews.  Optional if the mode is only used for syntax highlighting.
 
-### `flymake`
-
-* [Pyflakes](https://pypi.python.org/pypi/pyflakes) is needed to identify
-  warnings and errors in Python code.
-
-### Edit with Emacs - Chrome Plugin
-
-* [Edit with Emacs](https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh) is
-  needed to interact with the `edit-server` package.  Note that once editing is
-  requested Emacs needs to have the server started (it's disabled by default)
-  via `M-x edit-server-start`.
-
 ## Setup
+The following packages need to be installed via MELPA:
+- dockerfile-mode
+- markdown-mode
 
-* Jedi needs a one time configuration from within Emacs before it can be used:
+Launch Emacs and run the following:
 
-   `M-x jedi:install-server`
+```
+M-x package-refresh-contents RET
+M-x package-install RET dockerfile-mode RET
+M-x package-install RET markdown-mode RET
+```
+
+Restart Emacs to pick up the full configuration.
 
 # Todo
 A number of things have yet to be consolidated and tested, including:

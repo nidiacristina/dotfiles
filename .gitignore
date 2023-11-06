@@ -3,5 +3,10 @@ syntax: glob
 # ignore all backup files.
 *~
 
+# ignore site-specific configurations.  these should be version controlled
+# at some point, but not today.
 .emacs.d/elisp/site/
 .emacs.d/site.el
+
+# ignore packages installed from a Emacs Lisp Package Archive (ELPA).
+.emacs.d/elpa/

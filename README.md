@@ -75,6 +75,7 @@ are a list of external packages that should be installed for each Emacs package:
 ## Setup
 The following packages need to be installed via MELPA:
 - dockerfile-mode
+- Magit
 - markdown-mode
 
 Launch Emacs and run the following:
@@ -82,6 +83,7 @@ Launch Emacs and run the following:
 ```
 M-x package-refresh-contents RET
 M-x package-install RET dockerfile-mode RET
+M-x package-install RET magit RET
 M-x package-install RET markdown-mode RET
 ```
 

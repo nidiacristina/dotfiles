@@ -11,26 +11,6 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-;; git.el is considered a simple porcelain implementation and does not support
-;; commit templates.  this appends it to the log buffer when it exists.
-(eval-after-load "git-mode"
-  (defadvice git-setup-log-buffer (after insert-commit-template activate compile)
-    "Inserts the Git commit template into the log buffer if it exists."
-    (with-current-buffer buffer
-      (let ((template-path (git-config "commit.template")))
-        (when (and template-path (file-exists-p template-path))
-          (insert-file-contents template-path))))))
-
-;; gitsum hasn't been updated since it came out in 2008 and does not support
-;; commit templates either.  this prepends it to the log buffer when it exists.
-(defadvice gitsum-commit (after gitsum-insert-commit-template activate compile)
-  "Inserts the Git commit template into the log buffer if it exists."
-  (let ((buffer (get-buffer-create "*gitsum-commit*")))
-    (with-current-buffer buffer
-      (let ((template-path (git-config "commit.template")))
-        (when (and template-path (file-exists-p template-path))
-          (insert-file-contents template-path))))))
-
 ;; describe the Lisp symbol at, or near, the point.  checks the symbol beneath
 ;; the point to see if its a function or a variable and describes it.  if the
 ;; point isn't on a symbol, but is in a function call, the surrounding call is

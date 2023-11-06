@@ -27,8 +27,6 @@
 ;;
 (setq user-paths '("~/.emacs.d/elisp"
                    "~/.emacs.d/elisp/align-f90"
-                   "~/.emacs.d/elisp/git"
-                   "~/.emacs.d/elisp/gitsum"
                    "~/.emacs.d/elisp/matlab"))
 
 ;; add all of the user paths to the front of the search and the compatibility

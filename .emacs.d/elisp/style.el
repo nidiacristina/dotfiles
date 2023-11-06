@@ -153,7 +153,8 @@
 ;;       since a terminal mode Emacs can spawn graphical frames via emacsclient.
 ;;       this ensures said graphical clients have the toolbar disabled if
 ;;       they're spawned.
-(tool-bar-mode -1)
+(if (functionp 'tool-bar-mode)
+  (tool-bar-mode 0))
 
 (when (display-graphic-p)
   ;; add a distinct marker to the fringe next to empty lines.  note that this

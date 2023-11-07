@@ -181,4 +181,8 @@
 (when (not (window-system))
   ;; disable the menu bar.
   (menu-bar-mode -1)
-  )
+
+  ;; remap GNU Screen's TERM value to something Emacs understands.
+  (add-to-list 'term-file-aliases
+               '("screen.xterm-256color" . "xterm-256color"))
+)

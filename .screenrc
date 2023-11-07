@@ -3,6 +3,12 @@
 # understand where they are/what they're doing.  A number of potentially
 # surprising keys (e.g. kill windows and log out) are unbound as well.
 #
+# NOTE: screen is left to configure the TERM variable on its own.  if you
+#       are unhappy with what it chooses consider changing your client's
+#       terminal (i.e. the terminal you're SSH'ing from) or the application
+#       that uses what screen sets TERM to (i.e. Emacs).  hardcoding
+#       a value should be the last resort...
+#
 # NOTE: Should you use this, be aware that the prefix key is rebound from
 #       C-a to C-j.
 
@@ -29,10 +35,6 @@ startup_message off
 
 # advertise hardstatus support to $TERMCAP.
 termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
-
-# pretend we're an xterm so that random applications we're running won't
-# get confused and complain about a less than functional terminal window.
-term xterm
 
 # ensure that our last line always provides basic information about the
 # current window and who/where we are in the world.  something like so:

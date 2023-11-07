@@ -30,10 +30,6 @@ startup_message off
 # advertise hardstatus support to $TERMCAP.
 termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
 
-# pretend we're an xterm so that random applications we're running won't
-# get confused and complain about a less than functional terminal window.
-term xterm
-
 # ensure that our last line always provides basic information about the
 # current window and who/where we are in the world.  something like so:
 #

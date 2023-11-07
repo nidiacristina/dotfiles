@@ -31,6 +31,16 @@
   "Face for highlighting erroneous whitespace."
   :group 'whitespace)
 
+;; force specific foreground colors for comments and strings so they are
+;; consistent between 4- and 8-bit environments.  without this, we're at
+;; the mercy of some *strange* defaults (comments as "chocolate"?!?).
+;;
+;; NOTE: we don't get fancy and specify colors for each of the bit depths
+;;       since we choose colors that exist in all.
+;;
+(set-face-foreground 'font-lock-comment-face "red")
+(set-face-foreground 'font-lock-string-face "green")
+
 ;; underline warnings and errors from Flymake rather than provide a potentially
 ;; clashing face.  this also provides a simple, uncolored underline effect on
 ;; the terminal where the underline cannot be colored.

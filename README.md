@@ -36,10 +36,12 @@ configuration files:
   to spare my poor pinky when working in the shell and Emacs.
 
 # Installation
-Automated installation is currently missing.  Copying the entire repo into one's
-home directory or symbolically linking individual files/directories works.
+A simple installation script, `install-as-symlinks.sh`, is available which
+backs up existing configurations and creates symbolic links to the files in
+this repository.  This enables easy updates as any changes made will visible
+to Git without additional effort.
 
-## Cloning
+## Cloning the Repository
 Since this repository includes other repositories as submodules, you'll need to
 either 1) recursively clone this repository or 2) fetch each of the submodules
 individually.
@@ -63,7 +65,13 @@ While fetching each submodule can be done like so:
     done
 ```
 
-## External Software
+## Install Via Symbolic Links
+Change into the repository's working directory and run `install-as-symlinks.sh`.
+Existing configurations will be moved into
+`${HOME}/.user-configuration-backups/` and new symbolic links will be made to
+the working copy's contents.
+
+## Install External Software
 Several Emacs packages require external commands to function properly.  Below
 are a list of external packages that should be installed for each Emacs package:
 
@@ -72,7 +80,7 @@ are a list of external packages that should be installed for each Emacs package:
 * [Pandoc](http://pandoc.org/) is needed to render Markdown files into HTML for
   previews.  Optional if the mode is only used for syntax highlighting.
 
-## Setup
+## Post-Installation Setup
 Some setup is required before development can be done with this user
 configuration.  See below for details.
 

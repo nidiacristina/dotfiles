@@ -1,0 +1,5 @@
+[user]
+	name = nidiacristina
+	email = nr438@cornell.edu
+[core]
+	editor = emacs -nw

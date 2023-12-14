@@ -1,0 +1,7 @@
+syntax: glob
+
+# ignore all backup files.
+*~
+
+.emacs.d/elisp/site/
+.emacs.d/site.el
